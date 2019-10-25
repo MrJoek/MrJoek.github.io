@@ -8,19 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Review of C++ 1 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="2019.10.25开始复习C++，在此做一些笔记 面向对象的四大特性：封装、抽象、继承、多态 开始C++程序：定义头文件： #include 命名空间： using namespace std;主函数（程序从这里开始执行）：int main()终止主函数：return 0; C++注释 /注释/ 还可跨行 单行可用// 变量作用域：1.局部变量：函数或一个代码块内部声明的变量；2.形式参数：函数">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Review of C++ 1">
 <meta property="og:url" content="http://yoursite.com/2019/10/25/Review-of-C-1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2019.10.25开始复习C++，在此做一些笔记 面向对象的四大特性：封装、抽象、继承、多态 开始C++程序：定义头文件： #include 命名空间： using namespace std;主函数（程序从这里开始执行）：int main()终止主函数：return 0; C++注释 /注释/ 还可跨行 单行可用// 变量作用域：1.局部变量：函数或一个代码块内部声明的变量；2.形式参数：函数">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-25T07:58:35.706Z">
+<meta property="og:updated_time" content="2019-10-25T11:23:27.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Review of C++ 1">
+<meta name="twitter:description" content="2019.10.25开始复习C++，在此做一些笔记 面向对象的四大特性：封装、抽象、继承、多态 开始C++程序：定义头文件： #include 命名空间： using namespace std;主函数（程序从这里开始执行）：int main()终止主函数：return 0; C++注释 /注释/ 还可跨行 单行可用// 变量作用域：1.局部变量：函数或一个代码块内部声明的变量；2.形式参数：函数">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/themes/yilia/source/">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -44,10 +47,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/head.JPG" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">Mr Joe K!</a></h1>
 		</hgroup>
 		
 
@@ -102,10 +105,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/head.JPG" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">Mr Joe K!</h1>
 			</hgroup>
 			
 			
@@ -171,8 +174,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <image src="https://github.com/MrJoek/MrJoek.github.io/blob/master/images/p1.PNG?raw=true">
-</image>
+        <p>2019.10.25开始复习C++，在此做一些笔记</p>
+<p>面向对象的四大特性：封装、抽象、继承、多态</p>
+<p>开始C++程序：<br>定义头文件： #include <iostream><br>命名空间： using namespace std;<br>主函数（程序从这里开始执行）：int main()<br>终止主函数：return 0;</iostream></p>
+<p>C++注释 /<em>注释</em>/ 还可跨行 单行可用//</p>
+<p>变量作用域：<br>1.局部变量：函数或一个代码块内部声明的变量；<br>2.形式参数：函数参数的定义中声明的变量；<br>3.全局变量：在所有函数外部声明的变量（包括主函数）。<br>声明后要记得初始化</p>
+<p>字符常量：<br>src=”<a href="https://github.com/MrJoek/MrJoek.github.io/blob/master/images/字符常量.PNG?raw=true&quot;&gt;" target="_blank" rel="noopener">https://github.com/MrJoek/MrJoek.github.io/blob/master/images/字符常量.PNG?raw=true&quot;&gt;</a></p>
+<p>字符串常量：括在双引号中<br>定义常量：<br>1.#define预处理器  #define LENGTH 10<br>2.const关键字      const int LENGTH = 10;</p>
+<a id="more"></a>
+<p>static存储类<br>使用 static 修饰局部变量可以在函数调用之间保持局部变量的值</p>
+<p>extern存储类<br>用于提供一个全局变量的引用。当您使用 ‘extern’ 时，对于无法初始化的变量，会把变量名指向一个之前定义过的存储位置。<br>当有多个文件且定义了一个可以在其他文件中使用的全局变量或函数时，可以在其他文件中使用 extern 来得到已定义的变量或函数的引用。可以这么理解，extern 是用来在另一个文件中声明一个全局变量或函数。<br>extern 修饰符通常用于当有两个或多个文件共享相同的全局变量或函数的时候</p>
+<p>thread_local存储类：其声明的变量仅可在它在其上创建的线程上访问</p>
+
       
 
       
@@ -310,7 +323,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 Mr Joe K!
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
