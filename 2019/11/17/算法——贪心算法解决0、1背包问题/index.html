@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/11 | Hexo</title>
+  <title>算法——贪心算法解决0、1背包问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/11/index.html">
+  <meta name="description" content="思想：若能整个装下，装；若不能整个装下，算装下的比例。">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法——贪心算法解决0、1背包问题">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/算法——贪心算法解决0、1背包问题/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="思想：若能整个装下，装；若不能整个装下，算装下的比例。">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-17T08:21:22.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="算法——贪心算法解决0、1背包问题">
+<meta name="twitter:description" content="思想：若能整个装下，装；若不能整个装下，算装下的比例。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,36 +155,176 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-算法——贪心算法解决0、1背包问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      算法——贪心算法解决0、1背包问题
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/17/算法——贪心算法解决0、1背包问题/" class="archive-article-date">
+
+        
+        <a href="/2019/11/17/算法——贪心算法解决0、1背包问题/" class="archive-article-date">
   	<time datetime="2019-11-17T07:57:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/17/算法——贪心算法解决0、1背包问题/">算法——贪心算法解决0、1背包问题</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>思想：若能整个装下，装；若不能整个装下，算装下的比例。</p>
+<a id="more"></a>
+<p>代码：</p>
+<p>public class GreedyBP {<br>    public static void main(String[] args) {<br>        double w[] = { 0, 1, 8, 3, 4, 2, 6, 9, 20};</p>
+<pre><code>    double v[] = { 0, 5, 40, 27, 24, 12, 48, 90, 10 };
 
-        <div class="article-info info-on-right">
-          
+    double M = 170;
+
+    int n = w.length - 1;
+
+    double[] x = new double[n + 1];
+
+    Greedy(w, v, M, n, x);
+
+    System.out.println(&quot;排序后的物体的重量:&quot;);
+    for(int i=1;i&lt;=n;i++){
+        System.out.print(w[i]+&quot;\t&quot;);
+    }
+    System.out.println();
+
+    System.out.println(&quot;排序后的物体的价值:&quot;);
+    for(int i=1;i&lt;=n;i++){
+        System.out.print(v[i]+&quot;\t&quot;);
+    }
+
+    double[]t=new double[n+1];
+    for(int i=1;i&lt;=n;i++){
+        t[i]=v[i]/w[i];
+    }
+    //用冒泡排序对double[]t进行排序(大的在前)
+    for(int i=1;i&lt;=n;i++){
+        for(int j=1;j&lt;=n-i;j++){
+            if(t[j]&lt;t[j+1]){
+                double temp=t[j];
+                t[j]=t[j+1];
+                t[j+1]=temp;
+            }
+        }
+    }
+    System.out.println();
+
+    System.out.println(&quot;排好序后的单位物体的价值: &quot;);
+    for(int i=1;i&lt;=n;i++){
+        System.out.print(t[i]+&quot;\t&quot;);
+    }
+
+    double maxValueSum=0;   //用来存放背包能装下的物体的最大价值总和
+    for(int i=1;i&lt;x.length;i++){
+        maxValueSum+=x[i]*v[i];
+    }
+    System.out.println();
+
+    System.out.println(&quot;排序后每个物体装进背包的比例:&quot;);
+    for(int i=1;i&lt;=n;i++){
+        System.out.print(x[i]+&quot;\t&quot;);
+    }
+    System.out.println();
+
+    System.out.println(&quot;背包能装下的物体的最大价值总和为: &quot;+maxValueSum);
+
+}
+
+private static void Greedy(double[] w, double[] v, double M, int n, double[] x) {
+    maxPerValue(w, v, n);
+
+    double c = M;   //背包剩余的容量,刚开始时还没用装东西,为M
+    int i;
+
+    for (i = 1; i &lt;= n; i++) {
+        if (w[i] &lt;= c){
+        x[i] = 1;   
+        c -= w[i]; 
+        }else {     
+            break;  
+        }
+    }
+    if (i &lt;= n&amp;&amp; c &gt; 0){
+        x[i] = c / w[i];    
+    }
+}
+
+private static void maxPerValue(double[] w, double[] v, int n) {
+    double []t=new double[n+1];
+    int i;
+    for(i=1;i&lt;=n;i++){
+        t[i]=v[i]/w[i];
+    }
+    quickSort(t,0,t.length-1);
+}
+public static void quickSort(double[] arr,int low,int high) {
+    int l,r;
+    double temp,m;
+    if(low&gt;high) {
+        return;
+    }
+    l = low;
+    r = high;
+    temp = arr[low];
+
+    while(l&lt;r) {
+        while(temp&lt;=arr[r]&amp;&amp;l&lt;r) {
+            r--;
+    }
+
+    while(temp&gt;=arr[l]&amp;&amp;l&lt;r) {
+        l++;
+    }
+
+    if(l&lt;r) {
+        m = arr[r];
+        arr[r] = arr[l];
+        arr[l] = m;
+    }
+
+    }
+    arr[low] = arr[l];
+    arr[l] =  temp;
+
+    quickSort(arr, low,r-1);
+    quickSort(arr, r+1,high);
+}</code></pre><p>}</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,353 +336,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/17/算法——贪心算法解决0、1背包问题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/17/读《费尔巴哈和德国古典哲学的终结》/" class="archive-article-date">
-  	<time datetime="2019-11-17T06:40:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/17/读《费尔巴哈和德国古典哲学的终结》/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">读《费尔巴哈和德国古典哲学的终结》</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/17/读《费尔巴哈和德国古典哲学的终结》/">读《费尔巴哈和德国古典哲学的终结》</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">哲学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/17/读《八次危机》（一）/" class="archive-article-date">
-  	<time datetime="2019-11-17T00:05:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/17/读《八次危机》（一）/">读《八次危机》（一）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">经济学</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/16/读《中国共产党思想史》（三）/" class="archive-article-date">
-  	<time datetime="2019-11-16T13:04:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/16/读《中国共产党思想史》（三）/">读《中国共产党思想史》（三）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">中国共产党</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/16/对香港问题的讨论的几点想法/" class="archive-article-date">
-  	<time datetime="2019-11-16T01:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/16/对香港问题的讨论的几点想法/">对香港问题的讨论的几点想法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">文章与随想</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/读《中国共产党思想史》（二）/" class="archive-article-date">
-  	<time datetime="2019-11-09T06:36:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/读《中国共产党思想史》（二）/">读《中国共产党思想史》（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">中国共产党</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/温铁军《十次危机》（二）/" class="archive-article-date">
-  	<time datetime="2019-11-07T11:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/温铁军《十次危机》（二）/">温铁军《十次危机》（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/温铁军《十次危机》（一）/" class="archive-article-date">
-  	<time datetime="2019-11-07T08:47:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/温铁军《十次危机》（一）/">温铁军《十次危机》（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">经济学与国家政策</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/微信小程序/" class="archive-article-date">
-  	<time datetime="2019-11-07T06:25:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/微信小程序/">微信小程序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">微信小程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/02/算法——0、1背包问题（一）/" class="archive-article-date">
-  	<time datetime="2019-11-02T07:27:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/02/算法——0、1背包问题（一）/">算法——0、1背包问题（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/11/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/11/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -561,8 +458,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
